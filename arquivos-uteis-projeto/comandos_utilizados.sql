@@ -3,11 +3,17 @@
 --------------------------------
 -- ## REFERNCIAS DOCUMENTACAO --
 --------------------------------
--- Docuemntação Angular
+-- Documentação Angular
 link: https://angular.io/
 
 -- Angular Material
 link: https://material.angular.io/
+
+-- Material Design - Cores e temas
+link: https://material.io/design
+
+-- Material Design - colors
+link: https://material.io/design/color/the-color-system.html#tools-for-picking-colors
 
 -----------------------------
 -- ## 1 - COMANDOS ANGULAR --
