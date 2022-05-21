@@ -44,4 +44,8 @@ ex: ng g m courses --routing
 
 -- Criando um componente
 comando: ng generate component <caminho\nome do component> ou ng g m <caminho\nome do component>
-ex: ng g c courses\courses
+ex: ng g c courses/courses
+
+-- Criando uma interface
+comando: ng generate interface <caminho\nome da interface> ou ng g i <caminho\nome do interface>
+ex: ng g i courses/model/course
