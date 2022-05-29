@@ -9,7 +9,8 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
     ErrorDialogComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AppMaterialModule,
   ],
   exports: [
     ErrorDialogComponent
