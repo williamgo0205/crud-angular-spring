@@ -15,7 +15,8 @@ export class CoursersComponent implements OnInit {
 
   // Por conta do modo strict do Angular é necessário inicializar a variável
   // Nesse caso "Course", para isso, colocamos a inicializacao no "constructor"
-  courses: Observable<Course[]>; 
+  // Criando com o nome courses$ pois o Angular transforma a variável em um observable
+  courses$: Observable<Course[]>; 
 
   // Se for utilizar o array será necessario fazer um subscribe para transformar nesse array
   // Aqui nesse ponto estamos utilizando o Observable para o courses
@@ -27,7 +28,7 @@ export class CoursersComponent implements OnInit {
     // this.courses = [];
     // this.coursesService = new CoursesService();
     // this.coursesService.list().subscribe(courses => { this.courses = courses });
-    this.courses = this.coursesService.list();
+    this.courses$ = this.coursesService.list();
   }
 
   ngOnInit(): void {    
