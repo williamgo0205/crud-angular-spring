@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { Course } from '../model/course';
 import { CoursesService } from './../services/courses.service';
@@ -12,16 +13,24 @@ export class CoursersComponent implements OnInit {
 
   // coursesService: CoursesService;
 
-  courses: Course[] = []
+  // Por conta do modo strict do Angular é necessário inicializar a variável
+  // Nesse caso "Course", para isso, colocamos a inicializacao no "constructor"
+  courses: Observable<Course[]>; 
+
+  // Se for utilizar o array será necessario fazer um subscribe para transformar nesse array
+  // Aqui nesse ponto estamos utilizando o Observable para o courses
+  // courses: Course[] = []; 
+
   displayedColumns = ['name',  'category'];
 
   constructor(private coursesService: CoursesService) { 
     // this.courses = [];
     // this.coursesService = new CoursesService();
+    // this.coursesService.list().subscribe(courses => { this.courses = courses });
+    this.courses = this.coursesService.list();
   }
 
-  ngOnInit(): void {
-    this.courses = this.coursesService.list();
+  ngOnInit(): void {    
   }
 
 }
