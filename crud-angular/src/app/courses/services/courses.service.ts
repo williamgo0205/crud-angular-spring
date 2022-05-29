@@ -11,7 +11,7 @@ import { Course } from '../model/course';
 export class CoursesService {
 
   // Variavel que indica o caminho da API a ser executada
-  private readonly API = '/assets/acourses.json';
+  private readonly API = '/assets/courses.json';
 
   constructor(
     // Injecao do Http Client para chamadas AJAX
