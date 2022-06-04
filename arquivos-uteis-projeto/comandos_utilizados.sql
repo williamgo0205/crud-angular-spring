@@ -60,3 +60,17 @@ ex: ng g s courses/service/courses
 -- Criando uma pipe
 comando: ng generate pipe <caminho/nome do pipe> ou ng g pipe <caminho/nome do pipe>
 ex: ng g pipe shared/pipes/category
+
+------------------------
+-- ## 2 -PROJETO JAVA --
+------------------------
+
+-- Site para geração do projeto Spring Boot
+link: https://start.spring.io/
+
+-- Dependências Utilizadas
+ - Spring Web
+ - Spring Data JPA
+ - SpringBoot Dev tools
+ - Lombok
+ - H2 Database
