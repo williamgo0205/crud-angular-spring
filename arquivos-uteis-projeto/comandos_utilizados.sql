@@ -15,6 +15,9 @@ link: https://material.io/design
 -- Material Design - colors
 link: https://material.io/design/color/the-color-system.html#tools-for-picking-colors
 
+-- Biblioteca dos icones Material Design
+link: https://developers.google.com/fonts/docs/material_icons
+
 -----------------------------
 -- ## 1 - COMANDOS ANGULAR --
 -----------------------------
@@ -53,3 +56,7 @@ ex: ng g i courses/model/course
 -- Criando uma service
 comando: ng generate service <caminho/nome da service> ou ng g s <caminho/nome da service>
 ex: ng g s courses/service/courses
+
+-- Criando uma pipe
+comando: ng generate pipe <caminho/nome do pipe> ou ng g pipe <caminho/nome do pipe>
+ex: ng g pipe shared/pipes/category

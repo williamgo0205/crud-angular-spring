@@ -27,7 +27,7 @@ export class CoursesService {
       // first ou take faz o servidor finalizar o canal de conexão após a execução do método
       first(),
       // delay para carregar a pagina (5000 milisegundos = 5 segundos)
-      delay(5000),
+      //delay(5000),
       // O Pipe ou subscribe pode manipular o objeto obtido
       // O TAP recebe algo e pode fazer uso dessa informacao de algum modo.
       // Nesse caso apenas exibindo um console.log
