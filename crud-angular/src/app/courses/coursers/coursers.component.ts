@@ -24,7 +24,7 @@ export class CoursersComponent implements OnInit {
   // Aqui nesse ponto estamos utilizando o Observable para o courses
   // courses: Course[] = []; 
 
-  displayedColumns = ['name',  'category'];
+  displayedColumns = ['_id', 'name',  'category'];
 
   constructor(
     private coursesService: CoursesService,

@@ -10,8 +10,12 @@ import { Course } from '../model/course';
 })
 export class CoursesService {
 
-  // Variavel que indica o caminho da API a ser executada
-  private readonly API = '/assets/courses.json';
+  // Variavel que indica o caminho da API a ser executada usando o asset local
+  // private readonly API = '/assets/courses.json';
+
+  // Variavel que indica o caminho da API, nesse caso o banco em memoria H2 obtido o caminho
+  // atraves do arquivo de proxy "proxy.conf.js"
+  private readonly API = 'api/courses';
 
   constructor(
     // Injecao do Http Client para chamadas AJAX

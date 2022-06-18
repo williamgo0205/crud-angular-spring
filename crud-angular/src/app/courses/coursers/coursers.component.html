@@ -8,6 +8,12 @@
        e assim apos carregar os dados ele consegue saber que o c omponente foi carregado -->
   <div *ngIf="courses$ | async as courses; else loading">
     <table mat-table [dataSource]="courses" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="_id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let course">{{ course._id }}</td>
+      </ng-container>
+
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Curso</th>
@@ -17,8 +23,11 @@
       <!-- Category Column -->
       <ng-container matColumnDef="category">
         <th mat-header-cell *matHeaderCellDef>Categoria</th>
-        <td mat-cell *matCellDef="let course">{{ course.category }}
-          <mat-icon aria-hidden="false" aria-label="Categoria do curso">{{ course.category | category }}</mat-icon>
+        <td mat-cell *matCellDef="let course">
+          {{ course.category }}
+          <mat-icon aria-hidden="false" aria-label="Categoria do curso">{{
+            course.category | category
+          }}</mat-icon>
         </td>
       </ng-container>
 
