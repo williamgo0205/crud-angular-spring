@@ -29,6 +29,28 @@
         </td>
       </ng-container>
 
+      <!-- Action Column -->
+      <ng-container matColumnDef="actions">
+        <!-- Cabecalho da coluna -->
+        <mat-header-cell *matHeaderCellDef>
+          <button mat-mini-fab color="accent" aria-label="Adicionar um curso">
+            <mat-icon (click)="onAdd()" >add</mat-icon>
+          </button>
+        </mat-header-cell>  
+
+        <!-- Conteudo da coluna -->
+        <mat-cell *matCellDef="let course">
+          <button mat-icon-button color="primary" aria-label="Editar curso">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-icon-button color="warn" aria-label="Remover curso">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+        
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>

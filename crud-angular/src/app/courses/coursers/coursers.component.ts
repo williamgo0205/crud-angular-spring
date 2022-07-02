@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
@@ -24,11 +25,13 @@ export class CoursersComponent implements OnInit {
   // Aqui nesse ponto estamos utilizando o Observable para o courses
   // courses: Course[] = []; 
 
-  displayedColumns = ['_id', 'name',  'category'];
+  displayedColumns = ['_id', 'name', 'category', 'actions'];
 
   constructor(
     private coursesService: CoursesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute
   ) { 
     // this.courses = [];
     // this.coursesService = new CoursesService();
@@ -51,6 +54,12 @@ export class CoursersComponent implements OnInit {
   }
 
   ngOnInit(): void {    
+  }
+
+  onAdd() {
+    // this.route (ActivatedRoute), redireciona para a rota ativa, nesse caso http://localhost:4200/courses
+    // adicionando a rota desejada ficando: http://localhost:4200/courses/new
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 
 }
