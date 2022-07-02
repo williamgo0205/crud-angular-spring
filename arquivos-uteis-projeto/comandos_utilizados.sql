@@ -61,6 +61,21 @@ ex: ng g s courses/service/courses
 comando: ng generate pipe <caminho/nome do pipe> ou ng g pipe <caminho/nome do pipe>
 ex: ng g pipe shared/pipes/category
 
+-- Atualizacao Angular
+links: https://www.npmjs.com/package/@angular/core
+       https://update.angular.io/
+       https://github.com/angular/angular/releases
+       
+comando que verifica o que pode ser atualizado..............: ng update 
+comando para atualização de uma versão do angular (CLI).....: ng update @angular/cli@14.0.4
+comando para atualização de uma versão do angular (CORE)....: ng update @angular/core@14.0.4
+comando para atualização de uma versão do angular (CDK).....: ng update @angular/cdk@14.0.4
+comando para atualização de uma versão do angular (MATERIAL): ng update @angular/material@14.0.4
+
+
+Comando para atualizar tudo de uma única vez:
+ng update @angular/cli@14.0.4 @angular/core@14.0.4 @angular/material@14.0.4 @angular/cdk@14.0.4
+
 ------------------------
 -- ## 2 -PROJETO JAVA --
 ------------------------
