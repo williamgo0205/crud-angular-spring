@@ -26,11 +26,11 @@ public class CrudSpringApplication {
 
 			Course course1 = new Course();
 			course1.setName("Angular com Spring");
-			course1.setCategory("Front-end");
+			course1.setCategory("front-end");
 
 			Course course2 = new Course();
 			course2.setName("Java");
-			course2.setCategory("Back-end");
+			course2.setCategory("back-end");
 
 			List<Course> courses = Arrays.asList(course1, course2);
 
