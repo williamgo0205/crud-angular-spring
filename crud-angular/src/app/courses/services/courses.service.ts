@@ -39,4 +39,11 @@ export class CoursesService {
   
     );
   }
+
+  // Netodo responsavel por salvar um curso
+  save(record: Course) {
+    // Metodo HTTP POST para salvar um curso
+    return this.httpClient.post<Course>(this.API, record)
+    .pipe(first());
+  }
 }
