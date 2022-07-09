@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,7 +17,8 @@ export class CourseFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private coursesService: CoursesService,
-    private _snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private location: Location
   ) { 
     // Criando um grupo dos "cursos" atraves do formBuilder
     this.formularioCouseForm = this.formBuilder.group({
@@ -35,7 +37,7 @@ export class CourseFormComponent implements OnInit {
     this.coursesService.save(this.formularioCouseForm.value)
       .subscribe(
         // Caso sucesso ao salvar os dados
-        result => console.log(result),
+        result => this.onSuccess(),
         // Caso erro ao salvar os dados
         error => this.onError()
       );
@@ -43,11 +45,19 @@ export class CourseFormComponent implements OnInit {
 
   onCancel() {
     console.log('onCancel')
+    // Voltando a página anterior = this.location.back()
+    this.location.back();
+  }
+
+  private onSuccess() {
+    // Caso de erro exibe o snackbar informando o erro com a mensagem em uma duracao de 5 segundo (5000 ms)
+    this.snackBar.open('Curso Salvo com sucesso!!!', '', {duration: 5000});
+    this.onCancel();
   }
 
   private onError() {
     // Caso de erro exibe o snackbar informando o erro com a mensagem em uma duracao de 5 segundo (5000 ms)
-    this._snackBar.open('Erro ao salvar curso', '', {duration: 5000});
+    this.snackBar.open('Erro ao salvar curso', '', {duration: 5000});
   }
 
 }
