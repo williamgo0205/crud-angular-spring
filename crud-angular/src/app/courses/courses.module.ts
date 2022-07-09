@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CoursersComponent } from './coursers/coursers.component';
 import { CoursesRoutingModule } from './courses-routing.module';
 import { CourseFormComponent } from './course-form/course-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CourseFormComponent } from './course-form/course-form.component';
     CommonModule,
     CoursesRoutingModule,
     AppMaterialModule,
-    SharedModule
-  ]
+    SharedModule,
+    // ReactiveFormsModule - Fornece o form builder e o form group necesários ao componente  course-form
+    ReactiveFormsModule]
 })
 export class CoursesModule { }
