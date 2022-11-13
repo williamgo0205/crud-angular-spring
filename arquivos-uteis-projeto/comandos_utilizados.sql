@@ -67,13 +67,13 @@ links: https://www.npmjs.com/package/@angular/core
        https://github.com/angular/angular/releases
        
 comando que verifica o que pode ser atualizado..............: ng update 
-comando para atualização de uma versão do angular (CLI).....: ng update @angular/cli@14.0.4
-comando para atualização de uma versão do angular (CORE)....: ng update @angular/core@14.0.4
-comando para atualização de uma versão do angular (CDK).....: ng update @angular/cdk@14.0.4
-comando para atualização de uma versão do angular (MATERIAL): ng update @angular/material@14.0.4
+comando para atualização de uma versão do angular (CLI).....: ng update @angular/cli@14.2.9
+comando para atualização de uma versão do angular (CORE)....: ng update @angular/core@14.2.10
+comando para atualização de uma versão do angular (CDK).....: ng update @angular/cdk@14.2.7
+comando para atualização de uma versão do angular (MATERIAL): ng update @angular/material@14.2.7
 
 Comando para atualizar tudo de uma única vez:
-ng update @angular/cli@14.0.4 @angular/core@14.0.4 @angular/material@14.0.4 @angular/cdk@14.0.4
+ng update @angular/cli@14.2.9 @angular/core@14.2.10 @angular/material@14.2.7 @angular/cdk@14.2.7
 
 ------------------------
 -- ## 2 -PROJETO JAVA --
