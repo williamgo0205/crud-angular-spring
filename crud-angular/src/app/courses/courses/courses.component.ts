@@ -5,12 +5,12 @@ import { catchError, Observable, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Course } from '../model/course';
-import { CoursesService } from './../services/courses.service';
+import { CoursesService } from '../services/courses.service';
 
 @Component({
-  selector: 'app-coursers',
-  templateUrl: './coursers.component.html',
-  styleUrls: ['./coursers.component.scss']
+  selector: 'app-courses',
+  templateUrl: './courses.component.html',
+  styleUrls: ['./courses.component.scss']
 })
 export class CoursersComponent implements OnInit {
 
@@ -24,8 +24,6 @@ export class CoursersComponent implements OnInit {
   // Se for utilizar o array será necessario fazer um subscribe para transformar nesse array
   // Aqui nesse ponto estamos utilizando o Observable para o courses
   // courses: Course[] = []; 
-
-  displayedColumns = ['_id', 'name', 'category', 'actions'];
 
   constructor(
     private coursesService: CoursesService,
