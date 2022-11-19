@@ -41,7 +41,8 @@ export class CoursesService {
   }
 
   // Netodo responsavel por salvar um curso
-  save(record: Course) {
+  // Partial<Course> : Aceita o objeto Curso de forma parcial com pelo menos uma informacao
+  save(record: Partial<Course>) {
     // Metodo HTTP POST para salvar um curso
     return this.httpClient.post<Course>(this.API, record)
     .pipe(first());

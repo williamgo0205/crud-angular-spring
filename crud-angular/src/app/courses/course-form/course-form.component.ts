@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, NonNullableFormBuilder, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CoursesService } from '../services/courses.service';
@@ -12,19 +12,36 @@ import { CoursesService } from '../services/courses.service';
 })
 export class CourseFormComponent implements OnInit {
 
-  formularioCouseForm: FormGroup ;
+  // // Exemplo:
+  // // new FormControl('', {nonNullable: true}) - inicializacao do formulário pelo formBuilder
+  // // nao permitindo que o valor seja 'nulo' (null)
+  
+  // formularioCouseForm = this.formBuilder.group({
+  //   name: new FormControl('', {nonNullable: true}),
+  //   category: new FormControl('', {nonNullable: true})
+  // });
+
+  formularioCouseForm = this.formBuilder.group({
+    name: [''],
+    category: ['']
+  });
 
   constructor(
-    private formBuilder: FormBuilder,
+    // Ao invés de utilizar o FormBuilder, pode ser utilizada a nova classe (a partir do Angular 14), NonNullableFormBuilder
+    // que classifica todos os campos do formulario como nao nulos, ou seja, é o mesmo que ao iniciar cada atributo do formulario
+    // da seguinte maneira: name: new FormControl('', {nonNullable: true}),
+    private formBuilder: NonNullableFormBuilder,
+    // private formBuilder: FormBuilder,
+
     private coursesService: CoursesService,
     private snackBar: MatSnackBar,
     private location: Location
   ) { 
     // Criando um grupo dos "cursos" atraves do formBuilder
-    this.formularioCouseForm = this.formBuilder.group({
-      name: [null],
-      category: [null]
-    });
+    // this.formularioCouseForm = this.formBuilder.group({
+    //   name: [''],
+    //   category: ['']
+    // });
   }
 
   ngOnInit(): void {
