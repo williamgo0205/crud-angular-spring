@@ -1,4 +1,4 @@
-import { CoursesService } from '../services/courses.service';
+import { CoursesService } from '../../services/courses.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';

@@ -7,10 +7,14 @@
 
     <!-- ngIf - If de validacao para o courses
       Adicionando o "async" ele automaticamente se inscreve no o oservable 
-      e assim apos carregar os dados ele consegue saber que o c omponente foi carregado -->
+      e assim apos carregar os dados ele consegue saber que o c omponente foi carregado 
+      
+      [courses]="courses" => Parametro @Input dos cursos
+      (add)="onAdd()" => repassando o evento aonAdd() ao clicar no botao de incluir um curso para o @Output -->
     <app-courses-list 
       *ngIf="courses$ | async as courses; else loading" 
       [courses]="courses"
+      (add)="onAdd()" 
     ></app-courses-list>
 
     <!-- ng-template executa uma acao, nesse caso para a variável LOADING que foi carregada 
