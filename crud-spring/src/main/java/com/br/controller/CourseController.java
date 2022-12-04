@@ -3,9 +3,11 @@ package com.br.controller;
 import com.br.model.Course;
 import com.br.repository.CourseRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +36,16 @@ public class CourseController {
         return courseRepository.findAll();
     }
 
+    // Busca por curso especifico
+    // Repassando via pachVariable no corpo da requisicao atraves do "/{idCourse}"
+    @GetMapping("/{idCourse}")
+    public ResponseEntity<Course> findById(@PathVariable("idCourse") Long idCourse) {
+        // Retorno da Api. Caso encontre o curso retorna o mesmo com ok (httpStatus 200)
+        // Caso não encontre retorna notFound (httpStatus 404)
+        return  courseRepository.findById(idCourse)
+                .map(course -> ResponseEntity.ok().body(course))
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     /**
      * Exemplo Metodo POST utilizando a anotacao o retorno ReponseEntity para do HTTPStatus.CREATED = 201
@@ -60,4 +72,6 @@ public class CourseController {
     public Course create(@RequestBody Course course) {
         return courseRepository.save(course);
     }
+
+
 }
