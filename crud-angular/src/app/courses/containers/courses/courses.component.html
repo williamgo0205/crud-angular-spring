@@ -10,11 +10,13 @@
       e assim apos carregar os dados ele consegue saber que o c omponente foi carregado 
       
       [courses]="courses" => Parametro @Input dos cursos
-      (add)="onAdd()" => repassando o evento aonAdd() ao clicar no botao de incluir um curso para o @Output -->
+      (add)="onAdd()" => repassando o evento onAdd() ao clicar no botao de incluir um curso para o @Output 
+      (edit)="onEdit($event)" => repassando o evento onEdit($event) no botao de editar um curso para o @Output atraves do evento $event-->
     <app-courses-list 
       *ngIf="courses$ | async as courses; else loading" 
       [courses]="courses"
       (add)="onAdd()" 
+      (edit)="onEdit($event)"
     ></app-courses-list>
 
     <!-- ng-template executa uma acao, nesse caso para a variável LOADING que foi carregada 
