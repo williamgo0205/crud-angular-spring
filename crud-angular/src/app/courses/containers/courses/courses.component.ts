@@ -60,4 +60,9 @@ export class CoursersComponent implements OnInit {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
 
+  onEdit(course: Course) {
+     // adicionando a rota desejada ficando: http://localhost:4200/courses/edit/{id_course}
+    this.router.navigate(['edit', course._id], {relativeTo: this.route});
+  }
+
 }

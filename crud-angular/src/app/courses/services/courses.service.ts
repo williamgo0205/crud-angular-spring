@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, first, tap } from 'rxjs/operators';
+import { first, tap } from 'rxjs/operators';
 
 import { Course } from '../model/course';
 
@@ -23,6 +23,7 @@ export class CoursesService {
     private httpClient: HttpClient
     ) { }
 
+  // httpClient que retorna o metodo "list" da controller "CourseController" do backend
   list() {
     // Metodo HttpClient nesse caso um GET para ler os dados vindos da API
     // P.S. - Esse metdod HttpClient retorna um observable
@@ -35,9 +36,15 @@ export class CoursesService {
       // O Pipe ou subscribe pode manipular o objeto obtido
       // O TAP recebe algo e pode fazer uso dessa informacao de algum modo.
       // Nesse caso apenas exibindo um console.log
-      tap(courses => console.log(courses))
+      tap(courses => console.log("courses: ", courses))
   
     );
+  }
+
+  // httpClient que retorna o metodo "findById" da controller "CourseController" do backend
+  findById(id: string) {
+    // `${this.API}/${id}` => monta a URL (api/courses/{id})
+    return this.httpClient.get<Course>(`${this.API}/${id}`);
   }
 
   // Netodo responsavel por salvar um curso

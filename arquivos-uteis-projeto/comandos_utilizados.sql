@@ -61,6 +61,10 @@ ex: ng g s courses/service/courses
 comando: ng generate pipe <caminho/nome do pipe> ou ng g pipe <caminho/nome do pipe>
 ex: ng g pipe shared/pipes/category
 
+-- Criando um resolver
+comando: ng generate resolver <caminho/nome do resolver> ou ng g resolver <caminho/nome do resolver>
+ex: ng g resolver couses/guards/course
+
 -- Atualizacao Angular
 links: https://www.npmjs.com/package/@angular/core
        https://update.angular.io/
