@@ -2,6 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { Course } from './../../model/course';
 
 import { CoursesService } from '../../services/courses.service';
 
@@ -22,6 +24,7 @@ export class CourseFormComponent implements OnInit {
   // });
 
   formularioCouseForm = this.formBuilder.group({
+    _id: [''],
     name: [''],
     category: ['']
   });
@@ -35,7 +38,8 @@ export class CourseFormComponent implements OnInit {
 
     private coursesService: CoursesService,
     private snackBar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) { 
     // Criando um grupo dos "cursos" atraves do formBuilder
     // this.formularioCouseForm = this.formBuilder.group({
@@ -45,6 +49,15 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Atualiza a constante com o course que esta vindo do resolver atraves da rota (seja edicao ou inclusao)
+    const course: Course = this.route.snapshot.data['course'];
+
+    // this.formularioCouseForm.setValue => Seta os valores do formulario com os dados obtidos da rota
+    this.formularioCouseForm.setValue({
+      _id: course._id,
+      name: course.name, 
+      category: course.category
+    });
   }
 
   onSubmit() {
