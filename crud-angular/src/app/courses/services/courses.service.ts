@@ -50,8 +50,27 @@ export class CoursesService {
   // Netodo responsavel por salvar um curso
   // Partial<Course> : Aceita o objeto Curso de forma parcial com pelo menos uma informacao
   save(record: Partial<Course>) {
+    // Caso o registro possua ID ele vai atualizar o registro senao ele vai criar
+    if (record._id) {
+      return this.update(record);
+    }
+    // Metodo HTTP POST para salvar um curso
+    return this.create(record);
+  }
+
+  // Netodo privado responsavel por cria um curso
+  // Partial<Course> : Aceita o objeto Curso de forma parcial com pelo menos uma informacao
+  private create(record: Partial<Course>) {
     // Metodo HTTP POST para salvar um curso
     return this.httpClient.post<Course>(this.API, record)
+    .pipe(first());
+  }
+
+  // Netodo privado responsavel por alterar um curso
+  // Partial<Course> : Aceita o objeto Curso de forma parcial com pelo menos uma informacao
+  private update(record: Partial<Course>) {
+    // Metodo HTTP PUT para atualizar um curso
+    return this.httpClient.put<Course>(`${this.API}/${record._id}`, record)
     .pipe(first());
   }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,5 +74,25 @@ public class CourseController {
         return courseRepository.save(course);
     }
 
+    /**
+     * Exemplo Metodo PUT utilizando a anotacao ResponseStatus para retorno do HTTPStatus.CREATED = 201
+     * @param course
+     * @return
+     */
+    // @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping("/{idCourse}")
+    public ResponseEntity<Course> update(@PathVariable("idCourse") Long idCourse,
+                         @RequestBody Course course) {
+        // Busca o curso e caso seja valido atualiza os dados do curso com as informacoes
+        // Caso nao encontre o curso retorna o ResponseEntity.notFound()
+        return courseRepository.findById(idCourse)
+                .map(courseFound -> {
+                    courseFound.setName(course.getName());
+                    courseFound.setCategory(course.getCategory());
+                    Course courseUpdate = courseRepository.save(courseFound);
+                    return  ResponseEntity.ok().body(courseUpdate);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
 
 }
