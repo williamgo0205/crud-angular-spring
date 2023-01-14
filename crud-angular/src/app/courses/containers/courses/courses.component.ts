@@ -90,8 +90,8 @@ export class CoursersComponent implements OnInit {
           });
         },
         // Tratamento de erro ao remover o curso
-        () => this.onError('Erro ao tentar remover o curso');
-      }
+        () => this.onError('Erro ao tentar remover o curso')
+      );
   }
-
 }
+
