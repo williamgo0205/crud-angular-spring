@@ -6,15 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,8 +17,10 @@ public class CourseController {
 
     private final CourseRepository courseRepository;
 
-    // Com a anotacao @AllArgsConstructor nao e necessario enjetar as dependencias com o @Autowired
-    // E nem criar o construtor visto que, essa anotacao do lombok ja realiza esse procedimento
+    /**
+     * Com a anotacao @AllArgsConstructor nao e necessario enjetar as dependencias com o @Autowired
+     * E nem criar o construtor visto que, essa anotacao do lombok ja realiza esse procedimento
+     */
     // public CourseController(CourseRepository courseRepository) {
     //    this.courseRepository = courseRepository;
     // }
@@ -37,8 +31,10 @@ public class CourseController {
         return courseRepository.findAll();
     }
 
-    // Busca por curso especifico
-    // Repassando via pachVariable no corpo da requisicao atraves do "/{idCourse}"
+    /**
+     * Busca por curso especifico
+     * Repassando via pachVariable no corpo da requisicao atraves do "/{idCourse}"
+     */
     @GetMapping("/{idCourse}")
     public ResponseEntity<Course> findById(@PathVariable("idCourse") Long idCourse) {
         // Retorno da Api. Caso encontre o curso retorna o mesmo com ok (httpStatus 200)
@@ -49,12 +45,12 @@ public class CourseController {
     }
 
     /**
-     * Exemplo Metodo POST utilizando a anotacao o retorno ReponseEntity para do HTTPStatus.CREATED = 201
+     * Exemplo Metodo POST utilizando a anotacao ResponseStatus para retorno do HttpStatus.CREATED = 201
+     * retornando o HttpStatus dentro do return
      * @param course
      * @return
      */
     // @RequestMapping(method = RequestMethod.POST)
-    // @PostMapping
     // public ResponseEntity<Course> create(@RequestBody Course course) {
     //      //Retorna o ResponsyEntity com status code CREATED = 201
     //      return ResponseEntity
@@ -63,11 +59,11 @@ public class CourseController {
     // }
 
     /**
-     * Exemplo Metodo POST utilizando a anotacao ResponseStatus para retorno do HTTPStatus.CREATED = 201
+     * Exemplo Metodo POST utilizando a anotacao ResponseStatus para retorno do HttpStatus.CREATED = 201
+     * retornando o HttpStatus como anotacao ResponseStatus
      * @param course
      * @return
      */
-    // @RequestMapping(method = RequestMethod.POST)
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Course create(@RequestBody Course course) {
@@ -75,8 +71,9 @@ public class CourseController {
     }
 
     /**
-     * Exemplo Metodo PUT utilizando a anotacao ResponseStatus para retorno do HTTPStatus.CREATED = 201
+     * Exemplo Metodo PUT utilizando a anotacao ResponseStatus para retorno do HttpStatus.Ok = 200
      * @param course
+     * @param idCourse
      * @return
      */
     // @RequestMapping(method = RequestMethod.PUT)
@@ -91,6 +88,21 @@ public class CourseController {
                     courseFound.setCategory(course.getCategory());
                     Course courseUpdate = courseRepository.save(courseFound);
                     return  ResponseEntity.ok().body(courseUpdate);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Exemplo Metodo DELETE utilizando a anotacao ResponseStatus para retorno do HttpStatus.NO_CONTENT = 204 ao qual nao retorna conteúdo
+     * @param idCourse
+     * @return
+     */
+    @DeleteMapping("/{idCourse}")
+    public ResponseEntity<Void> delete(@PathVariable("idCourse") Long idCourse) {
+        return  courseRepository.findById(idCourse)
+                .map(courseFound -> {
+                    courseRepository.delete(courseFound);
+                    return  ResponseEntity.noContent().<Void>build();
                 })
                 .orElse(ResponseEntity.notFound().build());
     }

@@ -73,4 +73,12 @@ export class CoursesService {
     return this.httpClient.put<Course>(`${this.API}/${record._id}`, record)
     .pipe(first());
   }
+
+  // Netodo responsavel por deletar um curso
+  // Partial<Course> : Aceita o objeto Curso de forma parcial com pelo menos uma informacao
+  delete(id: string) {
+    // Metodo HTTP DELETE para deletar um curso
+    return this.httpClient.delete(`${this.API}/${id}`)
+    .pipe(first());
+  }
 }
