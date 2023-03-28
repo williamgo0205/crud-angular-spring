@@ -26,15 +26,15 @@ public class CrudSpringApplication {
 
 			Course course1 = new Course();
 			course1.setName("Angular com Spring");
-			course1.setCategory("front-end");
+			course1.setCategory("Front-end");
 
 			Course course2 = new Course();
-			course2.setName("Java");
-			course2.setCategory("back-end");
+			course2.setName("Java com Spring Boot");
+			course2.setCategory("Back-end");
 
 			Course course3 = new Course();
-			course3.setName("Go");
-			course3.setCategory("front-end");
+			course3.setName("Goolang");
+			course3.setCategory("Front-end");
 
 			List<Course> courses = Arrays.asList(course1, course2, course3);
 
