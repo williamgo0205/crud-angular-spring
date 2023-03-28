@@ -28,7 +28,7 @@ export class CourseFormComponent implements OnInit {
     _id: [''],
     name: ['', [Validators.required, 
       Validators.minLength(5), 
-      Validators.maxLength(100)]],
+      Validators.maxLength(200)]],
     category: ['', [Validators.required]]
   });
 
@@ -115,7 +115,7 @@ export class CourseFormComponent implements OnInit {
     if (field?.hasError('maxlength')) {
       // Caso exista erro acessa a propriedade maxLength para obter o tamenho máximo de caracteres
       // senão retorna o valor padrão de 100
-      const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 100;
+      const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 200;
       return `Tamanho máximo excedido de ${requiredLength} caracteres`
     }
 
