@@ -32,7 +32,11 @@ public class CrudSpringApplication {
 			course2.setName("Java");
 			course2.setCategory("back-end");
 
-			List<Course> courses = Arrays.asList(course1, course2);
+			Course course3 = new Course();
+			course3.setName("Go");
+			course3.setCategory("front-end");
+
+			List<Course> courses = Arrays.asList(course1, course2, course3);
 
 			courseRepository.saveAll(courses);
 		};
