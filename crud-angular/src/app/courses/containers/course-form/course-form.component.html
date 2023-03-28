@@ -8,7 +8,7 @@
             <mat-form-field class="full-width">
                 <input matInput placeholder="Nome" formControlName="name" #name>
                 <!-- mat-hint para a exibicao de quantos caracteres foram preenchido -->
-                <mat-hint align="end"> {{ name.value?.length }} /100</mat-hint>
+                <mat-hint align="end"> {{ name.value?.length }} /200</mat-hint>
                 <!-- mat-error para retorno de erro no campo -->
                 <mat-error *ngIf="formularioCouseForm.get('name')?.invalid">{{getErrorMessage('name')}}</mat-error>
             </mat-form-field>
