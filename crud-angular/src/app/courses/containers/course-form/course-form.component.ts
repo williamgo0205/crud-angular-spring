@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder } from '@angular/forms';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from './../../model/course';
@@ -24,9 +24,12 @@ export class CourseFormComponent implements OnInit {
   // });
 
   formularioCouseForm = this.formBuilder.group({
+    // Validator faz validacoes no formulario como nos exemplos abaixo para os campos name e category
     _id: [''],
-    name: [''],
-    category: ['']
+    name: ['', [Validators.required, 
+      Validators.minLength(5), 
+      Validators.maxLength(100)]],
+    category: ['', [Validators.required]]
   });
 
   constructor(
@@ -88,6 +91,36 @@ export class CourseFormComponent implements OnInit {
   private onError() {
     // Caso de erro exibe o snackbar informando o erro com a mensagem em uma duracao de 5 segundo (5000 ms)
     this.snackBar.open('Erro ao salvar curso', '', {duration: 5000});
+  }
+
+  // metodo para retorno de erro aos campos obrigatorios ou que contenham validacao
+  getErrorMessage(fieldName: string) {
+    // Obtem o campo repassado
+    const field = this.formularioCouseForm.get(fieldName);
+
+    // Validacao de campo obrigatorio
+    if (field?.hasError('required')) {
+      return 'esse campo obrigatório'
+    }
+
+    // Validacao de caracteres mínimos
+    if (field?.hasError('minlength')) {
+      // Caso exista erro acessa a propriedade minLength para obter o tamenho minimo de caracteres, 
+      // senão retorna o valor padrão de 5
+      const requiredLength = field.errors ? field.errors['minlength']['requiredLength'] : 5;
+      return `Tamanho mínimo precisa ser de ${requiredLength} caracteres`
+    }
+
+    // Validacao de caracteres máximos
+    if (field?.hasError('maxlength')) {
+      // Caso exista erro acessa a propriedade maxLength para obter o tamenho máximo de caracteres
+      // senão retorna o valor padrão de 100
+      const requiredLength = field.errors ? field.errors['maxlength']['requiredLength'] : 100;
+      return `Tamanho máximo excedido de ${requiredLength} caracteres`
+    }
+
+
+    return 'campo inválido'
   }
 
 }
