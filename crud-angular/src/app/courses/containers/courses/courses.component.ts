@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
+import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Course } from '../../model/course';
@@ -73,25 +74,39 @@ export class CoursersComponent implements OnInit {
   }
 
   onDelete(course: Course) {
-    // adicionando chamada para a remocao do curso na service
-    this.coursesService.delete(course._id)
-      .subscribe(
-        () => {      
-          // Refresh nos dados da pagina
-          this.refresh();
+    // Abre o modal dialog para confirmacao da exclusao do curso
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: "Tem certeza que deseja remover esse curso?",
+    });
 
-          // Adicionando um popup de curso removido com sucesso com botao "X" de fechar
-          this.snackBar.open('Curso removido com sucesso!!!', 'X', {
-            // configura a duracao de exibicao do snackbar para 5 segundos (5000 ml)
-            // posicionamento top (acima) e centralizado
-            duration: 5000,
-            verticalPosition: 'top',
-            horizontalPosition: 'center'
-          });
-        },
-        // Tratamento de erro ao remover o curso
-        () => this.onError('Erro ao tentar remover o curso')
-      );
+    // Obtem a confirmacao do modal (true/false) para aí sim validar o resultado e excluir ou nao o registro
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+       if (result) {
+          // adicionando chamada para a remocao do curso na service
+          this.coursesService.delete(course._id)
+          .subscribe(
+            () => {      
+              // Refresh nos dados da pagina
+              this.refresh();
+
+              // Adicionando um popup de curso removido com sucesso com botao "X" de fechar
+              this.snackBar.open('Curso removido com sucesso!!!', 'X', {
+                // configura a duracao de exibicao do snackbar para 5 segundos (5000 ml)
+                // posicionamento top (acima) e centralizado
+                duration: 5000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center'
+              });
+            },
+            // Tratamento de erro ao remover o curso
+            () => this.onError('Erro ao tentar remover o curso')
+          );
+       }
+    });
+
+
+
+
   }
 }
 

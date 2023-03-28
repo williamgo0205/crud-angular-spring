@@ -6,7 +6,11 @@
         <form [formGroup]="formularioCouseForm" class="min-with">
             <!-- Input para o campo Nome -->
             <mat-form-field class="full-width">
-                <input matInput placeholder="Nome" formControlName="name">
+                <input matInput placeholder="Nome" formControlName="name" #name>
+                <!-- mat-hint para a exibicao de quantos caracteres foram preenchido -->
+                <mat-hint align="end"> {{ name.value?.length }} /100</mat-hint>
+                <!-- mat-error para retorno de erro no campo -->
+                <mat-error *ngIf="formularioCouseForm.get('name')?.invalid">{{getErrorMessage('name')}}</mat-error>
             </mat-form-field>
             
              <!-- Selecte para o campo Categoria, nesse exemplo sendo front-end ou back-end -->
@@ -17,6 +21,8 @@
                     <mat-option value="front-end">Front-End</mat-option>
                     <mat-option value="back-end">Back-End</mat-option>
                 </mat-select>
+                <!-- mat-error para retorno de erro no campo -->
+                <mat-error *ngIf="formularioCouseForm.get('category')?.invalid">{{getErrorMessage('category')}}</mat-error>
             </mat-form-field>
         </form>
     </mat-card-content>
