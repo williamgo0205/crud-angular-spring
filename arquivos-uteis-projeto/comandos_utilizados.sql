@@ -95,3 +95,9 @@ link: https://start.spring.io/
 
  -- Atualizando versao Spring
  Atualizar a versão (spring-boot-starter-parent) no pom do projeto.
+
+ -- Validações BEan validation para JAVA EE ou Jakarta 
+ link: https://beanvalidation.org/
+
+ -- Contraints Bean Validation
+ link: https://jakarta.ee/specifications/bean-validation/3.0/apidocs/

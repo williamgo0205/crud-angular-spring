@@ -3,13 +3,17 @@ package com.br.controller;
 import com.br.model.Course;
 import com.br.repository.CourseRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/api/courses")
 @AllArgsConstructor
@@ -36,7 +40,7 @@ public class CourseController {
      * Repassando via pachVariable no corpo da requisicao atraves do "/{idCourse}"
      */
     @GetMapping("/{idCourse}")
-    public ResponseEntity<Course> findById(@PathVariable("idCourse") Long idCourse) {
+    public ResponseEntity<Course> findById(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
         // Retorno da Api. Caso encontre o curso retorna o mesmo com ok (httpStatus 200)
         // Caso não encontre retorna notFound (httpStatus 404)
         return  courseRepository.findById(idCourse)
@@ -66,7 +70,7 @@ public class CourseController {
      */
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Course create(@RequestBody Course course) {
+    public Course create(@RequestBody @Valid Course course) {
         return courseRepository.save(course);
     }
 
@@ -78,8 +82,8 @@ public class CourseController {
      */
     // @RequestMapping(method = RequestMethod.PUT)
     @PutMapping("/{idCourse}")
-    public ResponseEntity<Course> update(@PathVariable("idCourse") Long idCourse,
-                         @RequestBody Course course) {
+    public ResponseEntity<Course> update(@PathVariable("idCourse") @NotNull @Positive Long idCourse,
+                         @RequestBody @Valid Course course) {
         // Busca o curso e caso seja valido atualiza os dados do curso com as informacoes
         // Caso nao encontre o curso retorna o ResponseEntity.notFound()
         return courseRepository.findById(idCourse)
@@ -98,7 +102,7 @@ public class CourseController {
      * @return
      */
     @DeleteMapping("/{idCourse}")
-    public ResponseEntity<Void> delete(@PathVariable("idCourse") Long idCourse) {
+    public ResponseEntity<Void> delete(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
         return  courseRepository.findById(idCourse)
                 .map(courseFound -> {
                     courseRepository.delete(courseFound);
