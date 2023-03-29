@@ -97,7 +97,8 @@ public class CourseController {
     }
 
     /**
-     * Exemplo Metodo DELETE utilizando a anotacao ResponseStatus para retorno do HttpStatus.NO_CONTENT = 204 ao qual nao retorna conteúdo
+     * Exemplo Metodo DELETE HardCore pois deleta realmente o registro da base de dados
+     * utilizando a anotacao ResponseStatus para retorno do HttpStatus.NO_CONTENT = 204 ao qual nao retorna conteúdo
      * @param idCourse
      * @return
      */
