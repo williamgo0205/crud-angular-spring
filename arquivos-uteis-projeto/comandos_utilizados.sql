@@ -101,3 +101,6 @@ link: https://start.spring.io/
 
  -- Contraints Bean Validation
  link: https://jakarta.ee/specifications/bean-validation/3.0/apidocs/
+
+ -- Migração Sprimg Boot 3.0
+ link: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide
