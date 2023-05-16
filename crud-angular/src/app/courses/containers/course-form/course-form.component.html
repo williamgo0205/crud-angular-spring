@@ -18,8 +18,8 @@
                 <mat-label>Categoria</mat-label>
                 <mat-select formControlName="category">
                     <mat-option value="null"> </mat-option>
-                    <mat-option value="front-end">Front-End</mat-option>
-                    <mat-option value="back-end">Back-End</mat-option>
+                    <mat-option value="Front-end">Front-End</mat-option>
+                    <mat-option value="Back-end">Back-End</mat-option>
                 </mat-select>
                 <!-- mat-error para retorno de erro no campo -->
                 <mat-error *ngIf="formularioCouseForm.get('category')?.invalid">{{getErrorMessage('category')}}</mat-error>
@@ -27,8 +27,8 @@
         </form>
     </mat-card-content>
 
-    <mat-card-actions>
+    <mat-card-actions class="action-center">
         <button mat-raised-button color="primary" (click) = "onSubmit()">Salvar</button>
-        <button mat-raised-button (click) = "onCancel()">Cancelar</button>
+        <button mat-raised-button class="btn-space" (click) = "onCancel()">Cancelar</button>
     </mat-card-actions>
 </mat-card>
