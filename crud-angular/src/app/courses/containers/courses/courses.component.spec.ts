@@ -1,6 +1,6 @@
 import { CoursesService } from '../../services/courses.service';
 
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursersComponent } from './courses.component';
 

@@ -1,7 +1,8 @@
--- Comandos Curso Angula (LOIANE)
+-- Comandos Curso Angular (LOIANE)
+link github: https://github.com/loiane/curso-angular
 
 --------------------------------
--- ## REFERNCIAS DOCUMENTACAO --
+-- ## REFERêNCIAS DOCUMENTACAO --
 --------------------------------
 -- Documentação Angular
 link: https://angular.io/
@@ -21,10 +22,6 @@ link: https://developers.google.com/fonts/docs/material_icons
 -----------------------------
 -- ## 1 - COMANDOS ANGULAR --
 -----------------------------
-
--- Instalar angular
--- No "cmd" após instalação do NodeJs, digitar o comando abaixo para instalar o Angular:
-comando: npm install -g @angular/cli
 
 -- Criar um projeto novo
 -- Na pasta do projeto digitar o seguinte comando:
@@ -104,3 +101,29 @@ link: https://start.spring.io/
 
  -- Migração Sprimg Boot 3.0
  link: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide
+
+-------------------------
+-- ## 3 - COMANDOS NPM --
+-------------------------
+
+-- Instalar angular
+-- No "cmd" após instalação do NodeJs, digitar o comando abaixo para instalar o Angular:
+comando: npm install -g @angular/cli
+
+-- Remover pasta node_modules
+comando: rm -rf node-node_modules
+
+-- Limpar o cache
+comando: npm cache clean --force
+
+-- Instalar as dependencias do projeto
+comando: npm install --force
+
+-- Atualizar as vulnerabilidades do projeto
+npm audit fix
+
+-- Buildar a aplicação
+npm run build
+
+-- Startar a aplicação
+npm start {ou} npm run start
