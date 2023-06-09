@@ -1,9 +1,15 @@
 package com.br.model;
 
+import com.br.enums.Category;
+import com.br.enums.converters.CategoryConverter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +24,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 // Anotação - @SQLDelete é possivel repassar o sql que queremos que o hibernate execute toda vez que ele executar o delete do registro
 @SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id = ?")
 // Anotação - @Where é possivel filtrar no select where a clausula repassada, nesse caso "status = 'Ativo'
@@ -39,11 +45,10 @@ public class Course {
     private String name;
 
     @NonNull
-    @Length(max = 10)
-    @Pattern(regexp = "Back-end|Front-end")
     @Column(name = "category", length = 10, nullable = false)
     @JsonProperty("category")
-    private String category;
+    @Convert(converter = CategoryConverter.class)
+    private Category category;
 
     @NonNull
     @Length(max = 10)

@@ -2,6 +2,7 @@ package com.br.service;
 
 import com.br.dto.CourseDTO;
 import com.br.dto.mapper.CourseMapper;
+import com.br.enums.Category;
 import com.br.exception.RecordNotFoundException;
 import com.br.repository.CourseRepository;
 import jakarta.validation.Valid;
@@ -56,7 +57,7 @@ public class CourseService {
         return courseRepository.findById(idCourse)
                 .map(courseFound -> {
                     courseFound.setName(courseDTO.name());
-                    courseFound.setCategory(courseDTO.category());
+                    courseFound.setCategory(Category.FRONT_END);
                     return courseRepository.save(courseFound);
                 })
                 .map(courseMapper::toDTO)
