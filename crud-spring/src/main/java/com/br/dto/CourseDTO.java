@@ -22,5 +22,5 @@ import org.hibernate.validator.constraints.Length;
  */
 public record CourseDTO(@JsonProperty("_id") Long id,
                         @JsonProperty("name") @NotBlank @NotNull @Length(min = 5, max = 200) String name,
-                        @JsonProperty("category") @NotNull @Length(min = 10) @Pattern(regexp = "Back-end|Front-end") String category) {
+                        @JsonProperty("category") @NotNull @Length(max = 10) @Pattern(regexp = "Back-end|Front-end") String category) {
 }
