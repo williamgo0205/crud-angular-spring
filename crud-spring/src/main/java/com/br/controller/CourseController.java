@@ -1,13 +1,11 @@
 package com.br.controller;
 
 import com.br.model.Course;
-
 import com.br.service.CourseService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,12 +32,10 @@ public class CourseController {
      * Repassando via pachVariable no corpo da requisicao atraves do "/{idCourse}"
      */
     @GetMapping("/{idCourse}")
-    public ResponseEntity<Course> findById(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
+    public Course findById(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
         // Retorno da Api. Caso encontre o curso retorna o mesmo com ok (httpStatus 200)
-        // Caso não encontre retorna notFound (httpStatus 404)
-        return  courseService.findById(idCourse)
-                .map(course -> ResponseEntity.ok().body(course))
-                .orElse(ResponseEntity.notFound().build());
+        // Caso não encontre retorna notFound (httpStatus 404) na classe ApplicationControllerAdvice para o metodo handleNotFoundException
+        return courseService.findById(idCourse);
     }
 
     /**
@@ -62,29 +58,26 @@ public class CourseController {
      */
     // @RequestMapping(method = RequestMethod.PUT)
     @PutMapping("/{idCourse}")
-    public ResponseEntity<Course> update(@PathVariable("idCourse") @NotNull @Positive Long idCourse,
+    public Course update(@PathVariable("idCourse") @NotNull @Positive Long idCourse,
                          @RequestBody @Valid Course course) {
         // Busca o curso e caso seja valido atualiza os dados do curso com as informacoes
-        // Caso nao encontre o curso retorna o ResponseEntity.notFound()
-        return courseService.update(idCourse, course)
-                .map(courseFound -> ResponseEntity.ok().body(courseFound))
-                .orElse(ResponseEntity.notFound().build());
+        // Caso nao encontre o curso retorna o ResponseEntity.notFound() na classe ApplicationControllerAdvice para o metodo handleNotFoundException
+        return courseService.update(idCourse, course);
     }
 
     /**
      * Exemplo Metodo DELETE HardCore pois deleta realmente o registro da base de dados
      * utilizando a anotacao ResponseStatus para retorno do HttpStatus.NO_CONTENT = 204 ao qual nao retorna conteúdo
+     * retornando o HttpStatus como anotacao ResponseStatus
      * @param idCourse
      * @return
      */
     @DeleteMapping("/{idCourse}")
-    public ResponseEntity<Void> delete(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
         // Caso tenha conseguido deletar o registro retorna NO_CONTENT (http status 204 de sucesso)
-        if (courseService.delete(idCourse)) {
-           return  ResponseEntity.noContent().build();
-        }
-        // Caso não tenha conseguido deletar o registro retorna NOT_FOUND (http status 404 de sucesso)
-        return ResponseEntity.notFound().build();
+        // tratamento de excessao caso ocorra e feito na classe ApplicationControllerAdvice para o metodo handleNotFoundException
+        courseService.delete(idCourse);
     }
 
 }

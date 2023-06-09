@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
 /*Import e include para a utilização dos temas do material io do angular*/
 @import '@angular/material/theming';
@@ -10,7 +11,15 @@ $custom-app-secondary: mat-palette($mat-indigo, A200, A400, 700);
 $custom-app-war: mat-palette($mat-red);
 
 /*Configuração global cores Tema*/
-$custom-theme: mat-light-theme($custom-app-primary, $custom-app-secondary, $custom-app-war);
+$custom-theme: mat.define-light-theme((
+ color: (
+   primary: $custom-app-primary,
+   accent: $custom-app-secondary,
+   warn: $custom-app-war
+ ),
+ typography: mat.define-typography-config(),
+ density: 0,
+));
 
 /*Inclui através da função do angular @include o tema (angular-material-theme) customizado*/
 @include angular-material-theme($custom-theme);

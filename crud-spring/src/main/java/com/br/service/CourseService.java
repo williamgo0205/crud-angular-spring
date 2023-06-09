@@ -1,5 +1,6 @@
 package com.br.service;
 
+import com.br.exception.RecordNotFoundException;
 import com.br.model.Course;
 import com.br.repository.CourseRepository;
 import jakarta.validation.Valid;
@@ -10,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
 
 @Validated
 @Service
@@ -29,8 +29,10 @@ public class CourseService {
     }
 
     // Find by id Course
-    public Optional<Course> findById(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
-        return courseRepository.findById(idCourse);
+    // Caso nao encontre o curso devolve a excessao RecordNotFoundException
+    public Course findById(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
+        return courseRepository.findById(idCourse)
+                .orElseThrow(() -> new RecordNotFoundException(idCourse));
     }
 
     // Create Course
@@ -39,23 +41,22 @@ public class CourseService {
     }
 
     // Update Course
-    public Optional<Course> update(@NotNull @Positive Long idCourse,
+    // Faz o update do curso senao devolve a excessao RecordNotFoundException
+    public Course update(@NotNull @Positive Long idCourse,
                                    @Valid Course course) {
         return courseRepository.findById(idCourse)
                 .map(courseFound -> {
                     courseFound.setName(course.getName());
                     courseFound.setCategory(course.getCategory());
                     return courseRepository.save(courseFound);
-                });
+                })
+                .orElseThrow(() -> new RecordNotFoundException(idCourse));
     }
 
     // Delete Course
-    public boolean delete(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
-        return  courseRepository.findById(idCourse)
-                .map(courseFound -> {
-                    courseRepository.delete(courseFound);
-                    return  true;
-                })
-                .orElse(false);
+    // Encontrando o curso executa do delete senao, devolve uma excessao RecordNotFoundException
+    public void delete(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
+        courseRepository.delete(
+                courseRepository.findById(idCourse).orElseThrow(() -> new RecordNotFoundException(idCourse)));
     }
 }
