@@ -1,6 +1,6 @@
 package com.br.controller;
 
-import com.br.model.Course;
+import com.br.dto.CourseDTO;
 import com.br.service.CourseService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +23,7 @@ public class CourseController {
     }
 
     @GetMapping
-    public @ResponseBody List<Course> list() {
+    public @ResponseBody List<CourseDTO> list() {
         return courseService.list();
     }
 
@@ -32,7 +32,7 @@ public class CourseController {
      * Repassando via pachVariable no corpo da requisicao atraves do "/{idCourse}"
      */
     @GetMapping("/{idCourse}")
-    public Course findById(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
+    public CourseDTO findById(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
         // Retorno da Api. Caso encontre o curso retorna o mesmo com ok (httpStatus 200)
         // Caso não encontre retorna notFound (httpStatus 404) na classe ApplicationControllerAdvice para o metodo handleNotFoundException
         return courseService.findById(idCourse);
@@ -46,7 +46,7 @@ public class CourseController {
      */
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Course create(@RequestBody @Valid Course course) {
+    public CourseDTO create(@RequestBody @Valid @NotNull CourseDTO course) {
         return courseService.create(course);
     }
 
@@ -58,8 +58,8 @@ public class CourseController {
      */
     // @RequestMapping(method = RequestMethod.PUT)
     @PutMapping("/{idCourse}")
-    public Course update(@PathVariable("idCourse") @NotNull @Positive Long idCourse,
-                         @RequestBody @Valid Course course) {
+    public CourseDTO update(@PathVariable("idCourse") @NotNull @Positive Long idCourse,
+                            @RequestBody @Valid @NotNull CourseDTO course) {
         // Busca o curso e caso seja valido atualiza os dados do curso com as informacoes
         // Caso nao encontre o curso retorna o ResponseEntity.notFound() na classe ApplicationControllerAdvice para o metodo handleNotFoundException
         return courseService.update(idCourse, course);
