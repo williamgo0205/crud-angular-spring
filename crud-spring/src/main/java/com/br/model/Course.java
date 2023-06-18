@@ -1,20 +1,17 @@
 package com.br.model;
 
 import com.br.enums.Category;
+import com.br.enums.Status;
 import com.br.enums.converters.CategoryConverter;
+import com.br.enums.converters.StatusConverter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
-import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -51,9 +48,7 @@ public class Course {
     private Category category;
 
     @NonNull
-    @Length(max = 10)
-    @Pattern(regexp = "Ativo|Inativo")
-    @Column(name = "status", length = 10, nullable = false)
     @JsonProperty("status")
-    private String status = "Ativo";
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ACTIVE;
 }
