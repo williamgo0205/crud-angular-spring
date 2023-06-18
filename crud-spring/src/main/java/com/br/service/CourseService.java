@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,7 +37,7 @@ public class CourseService {
 
     // Find by id Course
     // Caso nao encontre o curso devolve a excessao RecordNotFoundException
-    public CourseDTO findById(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
+    public CourseDTO findById(@NotNull @Positive Long idCourse) {
         return courseRepository.findById(idCourse)
                 .map(courseMapper::toDTO)
                 .orElseThrow(() -> new RecordNotFoundException(idCourse));
@@ -56,7 +55,7 @@ public class CourseService {
         return courseRepository.findById(idCourse)
                 .map(courseFound -> {
                     courseFound.setName(courseDTO.name());
-                    courseFound.setCategory(courseDTO.category());
+                    courseFound.setCategory(courseMapper.convertCategoryValue(courseDTO.category()));
                     return courseRepository.save(courseFound);
                 })
                 .map(courseMapper::toDTO)
@@ -65,7 +64,7 @@ public class CourseService {
 
     // Delete Course
     // Encontrando o curso executa do delete senao, devolve uma excessao RecordNotFoundException
-    public void delete(@PathVariable("idCourse") @NotNull @Positive Long idCourse) {
+    public void delete(@NotNull @Positive Long idCourse) {
         courseRepository.delete(
                 courseRepository.findById(idCourse).orElseThrow(() -> new RecordNotFoundException(idCourse)));
     }

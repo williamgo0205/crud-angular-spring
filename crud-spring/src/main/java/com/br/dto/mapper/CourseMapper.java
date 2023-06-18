@@ -1,6 +1,7 @@
 package com.br.dto.mapper;
 
 import com.br.dto.CourseDTO;
+import com.br.enums.Category;
 import com.br.model.Course;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ public class CourseMapper {
         return new CourseDTO(
                 course.getId(),
                 course.getName(),
-                course.getCategory()
+                course.getCategory().getValue()
         );
     }
 
@@ -32,8 +33,21 @@ public class CourseMapper {
             course.setId(courseDTO.id());
         }
         course.setName(courseDTO.name());
-        course.setCategory(courseDTO.category());
-        course.setStatus("Ativo");
+        course.setCategory(convertCategoryValue(courseDTO.category()));
         return course;
+    }
+
+    // Método de conversao para a Categoria
+    public Category convertCategoryValue(String value) {
+        if(value == null) {
+            return  null;
+        }
+        // Expressao Switch (utilizada à partir do Java 17)
+        // Nessa caso validando os cvalores de categoria para retornar no método
+         return switch (value) {
+            case "Front-end" -> Category.FRONT_END;
+            case "Back-end" -> Category.BACK_END;
+            default -> throw new IllegalArgumentException("Categoria inválida: " + value);
+        };
     }
 }
