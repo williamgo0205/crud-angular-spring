@@ -17,7 +17,8 @@ public class CourseMapper {
         return new CourseDTO(
                 course.getId(),
                 course.getName(),
-                course.getCategory().getValue()
+                course.getCategory().getValue(),
+                course.getLessons()
         );
     }
 
