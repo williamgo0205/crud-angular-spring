@@ -5,12 +5,15 @@ import com.br.enums.Status;
 import com.br.enums.converters.CategoryConverter;
 import com.br.enums.converters.StatusConverter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +21,9 @@ import lombok.NonNull;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -49,6 +55,17 @@ public class Course {
 
     @NonNull
     @JsonProperty("status")
+    @Column(name = "status", length = 10, nullable = false)
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ACTIVE;
+
+    // Relacionamento OneToMany (Uma aula para muitos cursos)
+    // cascade:
+    //       CascadeType.ALL - nesse caso se um curso for removido, também é removida a aula
+    //       orphanRemoval = true - remove os registros que ficaram orfãos
+    //        mappedBy = "course" - Mapeamento realizado também para a classe Course
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
+    // JoinColum - Indica qual o nome da coluna que é feito o JOIN, nesse caso (course_id)
+    // @JoinColumn(name = "course_id")
+    private List<Lesson> lessons = new ArrayList<>();
 }
