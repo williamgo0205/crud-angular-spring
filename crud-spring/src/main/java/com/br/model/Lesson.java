@@ -32,5 +32,9 @@ public class Lesson {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     // JoinColum - Indica qual o nome da coluna que é feito o JOIN, nesse caso (course_id)
     @JoinColumn(name = "course_id", nullable = false)
+    // @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    //    Essa anotação faz apenas o SET como parte dessa deserialização do objeto pois, não será utilizado o GET nessa propriedade
+    //    a fim de evitar redundância dessa entidade (LESSON) para (COURSE)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Course course;
 }
