@@ -54,7 +54,7 @@ export class CourseFormComponent implements OnInit {
   ngOnInit(): void {
     // Atualiza a constante com o course que esta vindo do resolver atraves da rota (seja edicao ou inclusao)
     const course: Course = this.route.snapshot.data['course'];
-
+    
     // this.formularioCouseForm.setValue => Seta os valores do formulario com os dados obtidos da rota
     this.formularioCouseForm.setValue({
       _id: course._id,
