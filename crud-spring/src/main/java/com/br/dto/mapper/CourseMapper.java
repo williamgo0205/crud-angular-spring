@@ -1,9 +1,13 @@
 package com.br.dto.mapper;
 
 import com.br.dto.CourseDTO;
+import com.br.dto.LessonDTO;
 import com.br.enums.Category;
 import com.br.model.Course;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class CourseMapper {
@@ -14,11 +18,21 @@ public class CourseMapper {
         if (course == null) {
             return null;
         }
+        // Criacao da lista de lessonDTO a partir da entidade Lesson
+        List<LessonDTO> lessons = course.getLessons()
+                .stream()
+                .map(lessonn -> new LessonDTO(
+                        lessonn.getId(),
+                        lessonn.getName(),
+                        lessonn.getYouTubeUrl())
+                )
+                .collect(Collectors.toList());
+
         return new CourseDTO(
                 course.getId(),
                 course.getName(),
                 course.getCategory().getValue(),
-                course.getLessons()
+                lessons
         );
     }
 
