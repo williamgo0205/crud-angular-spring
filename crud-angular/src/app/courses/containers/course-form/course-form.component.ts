@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from './../../model/course';
 
+import { Lesson } from '../../model/lesson';
 import { CoursesService } from '../../services/courses.service';
 
 @Component({
@@ -18,19 +19,7 @@ export class CourseFormComponent implements OnInit {
   // // new FormControl('', {nonNullable: true}) - inicializacao do formulário pelo formBuilder
   // // nao permitindo que o valor seja 'nulo' (null)
   
-  // formularioCouseForm = this.formBuilder.group({
-  //   name: new FormControl('', {nonNullable: true}),
-  //   category: new FormControl('', {nonNullable: true})
-  // });
-
-  formularioCouseForm = this.formBuilder.group({
-    // Validator faz validacoes no formulario como nos exemplos abaixo para os campos name e category
-    _id: [''],
-    name: ['', [Validators.required, 
-      Validators.minLength(5), 
-      Validators.maxLength(200)]],
-    category: ['', [Validators.required]]
-  });
+  formularioCouseForm!: FormGroup; // formularioCouseForm! - o "!" permite que declare o construtor do formGroup em outro lugar, por exemplo no ngOnInit
 
   constructor(
     // Ao invés de utilizar o FormBuilder, pode ser utilizada a nova classe (a partir do Angular 14), NonNullableFormBuilder
@@ -43,23 +32,44 @@ export class CourseFormComponent implements OnInit {
     private snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute
-  ) { 
-    // Criando um grupo dos "cursos" atraves do formBuilder
-    // this.formularioCouseForm = this.formBuilder.group({
-    //   name: [''],
-    //   category: ['']
-    // });
-  }
+  ) { }
 
   ngOnInit(): void {
     // Atualiza a constante com o course que esta vindo do resolver atraves da rota (seja edicao ou inclusao)
     const course: Course = this.route.snapshot.data['course'];
+    
+    this.formularioCouseForm = this.formBuilder.group({
+        // Validator faz validacoes no formulario como nos exemplos abaixo para os campos name e category
+        _id: [course._id],
+        name: [course.name, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
+        category: [course.category, [Validators.required]],
+        // FormArray de lessons é obtido através do formBuilder
+        lessons: this.formBuilder.array(this.retrieveLessons(course))
+      });
+  }
 
-    // this.formularioCouseForm.setValue => Seta os valores do formulario com os dados obtidos da rota
-    this.formularioCouseForm.setValue({
-      _id: course._id,
-      name: course.name, 
-      category: course.category
+  // Criação do array para obter as Aulas (retrieveLessons) 
+  private retrieveLessons(course: Course) {
+    const lessons = [];
+    // Verifica se existem lições
+    if (course?.lessons) {
+      // ForEach abaixo adiciona cada aula (lesson) do curso
+      course.lessons.forEach( lesson => 
+        lessons.push(this.createLesson(lesson))
+      );
+    } else { // Verifica se o array de lições está vazio e cria uma nossa lesson vazia
+      lessons.push(this.createLesson());
+    }
+
+    return lessons;
+  }
+
+  // Metodo privado que será responsável por criar um grupo de aulas (Lessons)
+  private createLesson(lesson: Lesson = {id: '', name: '', youtubeUrl: ''}) {
+    return this.formBuilder.group({
+      id: [lesson.id], 
+      name: [lesson.name], 
+      youtubeURl: [lesson.youtubeUrl]
     });
   }
 

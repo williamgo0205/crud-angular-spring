@@ -26,6 +26,6 @@ export class CourseResolver implements Resolve<Course> {
     }
     // Quando nao for edicao mas for um curso novo ele passa tambem pelo resolver e sendo assim é necessario
     // retornar um objeto novo com os dados vazios assim como existe no form.builder do course-form
-    return of({_id: '', name: '', category: ''});
+    return of({ _id: '', name: '', category: '', lessons: [] });
   }
 }
