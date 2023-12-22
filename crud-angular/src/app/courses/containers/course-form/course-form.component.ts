@@ -44,7 +44,7 @@ export class CourseFormComponent implements OnInit {
         name: [course.name, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]],
         category: [course.category, [Validators.required]],
         // FormArray de lessons é obtido através do formBuilder
-        lessons: this.formBuilder.array(this.retrieveLessons(course))
+        lessons: this.formBuilder.array(this.retrieveLessons(course), Validators.required)
       });
   }
 
@@ -68,8 +68,8 @@ export class CourseFormComponent implements OnInit {
   private createLesson(lesson: Lesson = {id: '', name: '', youtubeUrl: ''}) {
     return this.formBuilder.group({
       id: [lesson.id], 
-      name: [lesson.name], 
-      youtubeUrl: [lesson.youtubeUrl]
+      name: [lesson.name, [Validators.required, Validators.minLength(5), Validators.maxLength(200)]], 
+      youtubeUrl: [lesson.youtubeUrl, [Validators.required, Validators.minLength(10), Validators.maxLength(11)]]
     });
   }
 
@@ -93,16 +93,20 @@ export class CourseFormComponent implements OnInit {
 
 
   onSubmit() {
-    // Verifica o valor do formulario = this.formularioCouseForm.value
-    console.log(this.formularioCouseForm.value)
-    // Repassa os dados do formulario para o metodo save da classe de servico
-    this.coursesService.save(this.formularioCouseForm.value)
-      .subscribe(
-        // Caso sucesso ao salvar os dados
-        result => this.onSuccess(),
-        // Caso erro ao salvar os dados
-        error => this.onError()
-      );
+    // Caso o form esteja válido salva as informações
+    if(this.formularioCouseForm.valid) {
+      // Repassa os dados do formulario para o metodo save da classe de servico
+      this.coursesService.save(this.formularioCouseForm.value)
+        .subscribe(
+          // Caso sucesso ao salvar os dados
+          result => this.onSuccess(),
+          // Caso erro ao salvar os dados
+          error => this.onError()
+        );
+    } else {
+      alert('form inválido');
+    }
+
   }
 
   onCancel() {
@@ -150,6 +154,13 @@ export class CourseFormComponent implements OnInit {
 
 
     return 'campo inválido'
+  }
+
+  // Valida se o form está válido
+  isFormArrayRequired() {
+    const lessons = this.formularioCouseForm.get('lessons') as UntypedFormArray;
+    // Valida se o form está válido, com erro de "required" e se esta touched, ou seja foi clicado pelo usuario
+    return !lessons.valid && lessons.hasError('required') && lessons.touched;
   }
 
 }
