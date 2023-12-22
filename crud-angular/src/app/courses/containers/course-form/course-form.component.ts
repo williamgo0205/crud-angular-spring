@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, UntypedFormArray, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from './../../model/course';
@@ -69,8 +69,14 @@ export class CourseFormComponent implements OnInit {
     return this.formBuilder.group({
       id: [lesson.id], 
       name: [lesson.name], 
-      youtubeURl: [lesson.youtubeUrl]
+      youtubeUrl: [lesson.youtubeUrl]
     });
+  }
+
+  // Metodo de retorno das aulas
+  // Tipagem UntypedFormArray para utilizar  no formArray quando não possuir tipagem
+  getLessonsFormArray() {
+    return (<UntypedFormArray>this.formularioCouseForm.get('lessons')).controls;
   }
 
   onSubmit() {
