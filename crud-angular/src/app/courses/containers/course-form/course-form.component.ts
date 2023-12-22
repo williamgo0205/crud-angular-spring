@@ -79,6 +79,19 @@ export class CourseFormComponent implements OnInit {
     return (<UntypedFormArray>this.formularioCouseForm.get('lessons')).controls;
   }
 
+  // Adicionando uma nova aula (Lesson)
+  addNewLesson() {
+    const lessons = this.formularioCouseForm.get('lessons') as UntypedFormArray;
+    lessons.push(this.createLesson());
+  }
+
+  // Remove uma aula (Lesson)
+  removeLesson(index: number) {
+    const lessons = this.formularioCouseForm.get('lessons') as UntypedFormArray;
+    lessons.removeAt(index);
+  }
+
+
   onSubmit() {
     // Verifica o valor do formulario = this.formularioCouseForm.value
     console.log(this.formularioCouseForm.value)
@@ -140,6 +153,3 @@ export class CourseFormComponent implements OnInit {
   }
 
 }
-
-
-
