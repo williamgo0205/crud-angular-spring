@@ -127,3 +127,13 @@ npm run build
 
 -- Startar a aplicação
 npm start {ou} npm run start
+
+---------------------------------------
+-- ## 4 - COMANDOS JEST - UNIT TESTS --
+---------------------------------------
+
+-- Adicionando Jest no projeto
+link: https://dev.to/brunoromeiro/angular-com-jest-5enn
+
+-- Rodar todos os testes
+npm test

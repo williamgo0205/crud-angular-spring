@@ -22,8 +22,14 @@
       "es2020",
       "dom"
     ],
-    "useDefineForClassFields": false
+    // "typeRoots": ["node_modules/@types"],
+    "useDefineForClassFields": false,
+    "types": [
+      "jest", 
+      "node"
+    ]
   },
+  // "include": ["src/**/*"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
