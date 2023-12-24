@@ -1,14 +1,16 @@
 import { CoursesService } from '../../services/courses.service';
 
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursersComponent } from './courses.component';
 
 describe('CoursersComponent - Unit Tests', () => {
   let component: CoursersComponent;
 
-  // Mocks
-  const coursesServiceMock = {} as unknown as CoursesService;
+  const coursesServiceMock = {
+    list: jest.fn()
+  } as unknown as CoursesService;
 
   const matDialogMock = {} as unknown as MatDialog;
 
@@ -16,11 +18,15 @@ describe('CoursersComponent - Unit Tests', () => {
 
   const activatedRoutMock = {} as unknown as ActivatedRoute;
 
+  const matSnackBarMock = {} as unknown as MatSnackBar;
+
   beforeEach(() => {
-    component = new CoursersComponent(coursesServiceMock, matDialogMock, routerMock, activatedRoutMock)
+    component = new CoursersComponent(coursesServiceMock, matDialogMock, routerMock, activatedRoutMock, matSnackBarMock);
+    jest.clearAllMocks();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });

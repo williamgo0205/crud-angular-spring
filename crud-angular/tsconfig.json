@@ -22,14 +22,13 @@
       "es2020",
       "dom"
     ],
-    // "typeRoots": ["node_modules/@types"],
     "useDefineForClassFields": false,
     "types": [
       "jest", 
       "node"
-    ]
+    ],
+    "esModuleInterop": true
   },
-  // "include": ["src/**/*"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
