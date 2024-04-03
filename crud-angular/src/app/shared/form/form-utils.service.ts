@@ -25,7 +25,8 @@ export class FormUtilsService {
   }
 
   // metodo para retorno de erro aos campos obrigatorios ou que contenham validacao
-  getErrorMessage(formGroup: UntypedFormGroup, fieldName: string) {
+  getErrorMessage(formGroup: UntypedFormGroup, 
+                  fieldName: string) {
     // Obtem o campo repassado
     const field = formGroup.get(fieldName) as UntypedFormControl;
 
@@ -71,10 +72,11 @@ export class FormUtilsService {
     return this.getErrorMessageFromField(field);
   }
 
-    // Valida se o form está válido
-    isFormArrayRequired(formGroup: UntypedFormGroup, formArrayName: string) {
-      const formArray = formGroup.get(formArrayName) as UntypedFormArray;
-      // Valida se o form está válido, com erro de "required" e se esta touched, ou seja foi clicado pelo usuario
-      return !formArray.valid && formArray.hasError('required') && formArray.touched;
-    }
+  // Valida se o form está válido
+  isFormArrayRequired(formGroup: UntypedFormGroup, 
+                      formArrayName: string) {
+    const formArray = formGroup.get(formArrayName) as UntypedFormArray;
+    // Valida se o form está válido, com erro de "required" e se esta touched, ou seja foi clicado pelo usuario
+    return !formArray.valid && formArray.hasError('required') && formArray.touched;
+  }
 }
