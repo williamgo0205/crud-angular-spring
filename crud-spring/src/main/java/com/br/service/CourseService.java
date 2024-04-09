@@ -3,6 +3,7 @@ package com.br.service;
 import com.br.dto.CourseDTO;
 import com.br.dto.mapper.CourseMapper;
 import com.br.exception.RecordNotFoundException;
+import com.br.model.Course;
 import com.br.repository.CourseRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -54,8 +55,15 @@ public class CourseService {
                             @Valid @NotNull CourseDTO courseDTO) {
         return courseRepository.findById(idCourse)
                 .map(courseFound -> {
+                    Course course = courseMapper.toEntity(courseDTO);
+
                     courseFound.setName(courseDTO.name());
                     courseFound.setCategory(courseMapper.convertCategoryValue(courseDTO.category()));
+
+                    // Remove todos os cursos para adicionar manualmente uma aum a fim de obter as referencias corrertas
+                    courseFound.getLessons().clear();
+                    course.getLessons().forEach(courseFound.getLessons()::add);
+
                     return courseRepository.save(courseFound);
                 })
                 .map(courseMapper::toDTO)

@@ -13,20 +13,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 @Entity
-@NoArgsConstructor(force = true)
 // Anotação - @SQLDelete é possivel repassar o sql que queremos que o hibernate execute toda vez que ele executar o delete do registro
 @SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id = ?")
 // Anotação - @Where é possivel filtrar no select where a clausula repassada, nesse caso "status = 'Ativo'
@@ -58,6 +57,9 @@ public class Course {
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ACTIVE;
 
+    @NotNull
+    @NotEmpty
+    @Valid
     // Relacionamento OneToMany (Uma aula para muitos cursos)
     // cascade:
     //       CascadeType.ALL - nesse caso se um curso for removido, também é removida a aula
@@ -67,4 +69,68 @@ public class Course {
     // JoinColum - Indica qual o nome da coluna que é feito o JOIN, nesse caso (course_id)
     // @JoinColumn(name = "course_id")
     private List<Lesson> lessons = new ArrayList<>();
+
+    public Course(Long id, String name, Category category, Status status, List<Lesson> lessons) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.status = status;
+        this.lessons = lessons;
+    }
+
+    public Course() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Course{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", category=").append(category);
+        sb.append(", status=").append(status);
+        sb.append(", lessons=").append(lessons);
+        sb.append('}');
+        return sb.toString();
+    }
 }

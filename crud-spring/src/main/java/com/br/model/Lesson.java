@@ -2,13 +2,11 @@ package com.br.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
 // Classe refernte as aulas (Lesson) de um curso
-@Data
 @Entity
 public class Lesson {
 
@@ -17,14 +15,21 @@ public class Lesson {
     @JsonProperty("id")
     private Long id;
 
+    @NotNull
+    @NotBlank
+    @Length(min = 5, max = 100)
     @Column(length = 100, nullable = false)
     @JsonProperty("name")
     private String name;
 
+    @NotNull
+    @NotBlank
+    @Length(min = 10, max = 11)
     @Column(length = 11, nullable = false)
     @JsonProperty("youTubeUrl")
     private String youTubeUrl;
 
+    @NotNull
     //  @ManyToOne - Fazendo o Mapeamento Muitos para Um (Muitos cursos para uma aula)
     //          fetch = FetchType.LAZY - Carrega esse mapeamento apenas quando for excutada a função getCourse
     //                  FetchType.EAGER - Carrega esse mapeamento toda vez que a entidade Lesson for rexecutada/carregada
@@ -37,4 +42,57 @@ public class Lesson {
     //    a fim de evitar redundância dessa entidade (LESSON) para (COURSE)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Course course;
+
+    public Lesson(Long id, String name, String youTubeUrl, Course course) {
+        this.id = id;
+        this.name = name;
+        this.youTubeUrl = youTubeUrl;
+        this.course = course;
+    }
+
+    public Lesson() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getYouTubeUrl() {
+        return youTubeUrl;
+    }
+
+    public void setYouTubeUrl(String youTubeUrl) {
+        this.youTubeUrl = youTubeUrl;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Lesson{");
+        sb.append("id=").append(id);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", youTubeUrl='").append(youTubeUrl).append('\'');
+        sb.append(", course=").append(course);
+        sb.append('}');
+        return sb.toString();
+    }
 }
