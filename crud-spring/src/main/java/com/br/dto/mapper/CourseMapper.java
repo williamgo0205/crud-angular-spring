@@ -4,6 +4,7 @@ import com.br.dto.CourseDTO;
 import com.br.dto.LessonDTO;
 import com.br.enums.Category;
 import com.br.model.Course;
+import com.br.model.Lesson;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -47,8 +48,24 @@ public class CourseMapper {
         if (courseDTO.id() != null) {
             course.setId(courseDTO.id());
         }
+
+        //Montando o DTO dos curson através do courseDTO
+        List<Lesson> lessons =  courseDTO.lessons()
+            .stream()
+            .map(lessonDTO -> {
+                var lesson = new Lesson();
+                lesson.setId(lessonDTO.id());
+                lesson.setName(lessonDTO.name());
+                lesson.setYouTubeUrl(lessonDTO.youtubeUrl());
+                lesson.setCourse(course);
+                return lesson;
+            })
+            .collect(Collectors.toList());
+
         course.setName(courseDTO.name());
         course.setCategory(convertCategoryValue(courseDTO.category()));
+        course.setLessons(lessons);
+
         return course;
     }
 
