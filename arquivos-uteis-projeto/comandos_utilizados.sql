@@ -19,6 +19,9 @@ link: https://material.io/design/color/the-color-system.html#tools-for-picking-c
 -- Biblioteca dos icones Material Design
 link: https://developers.google.com/fonts/docs/material_icons
 
+-- Baeldung Validation Enum
+link: https://www.baeldung.com/javax-validations-enums
+
 -----------------------------
 -- ## 1 - COMANDOS ANGULAR --
 -----------------------------

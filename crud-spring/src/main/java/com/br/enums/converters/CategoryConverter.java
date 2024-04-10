@@ -26,9 +26,11 @@ public class CategoryConverter implements AttributeConverter<Category, String> {
         if (value == null) {
             return null;
         }
-        // Faz um Stream buscando todos os valores de categorias e compara com o valor passdo via parametro (value)
-        // Se for o mesmo retorna o primeiro valor encontrado (findFirst)
-        // lança uma exception de argumento inválido (IllegalArgumentException)
+        /**
+         * Faz um Stream buscando todos os valores de categorias e compara com o valor passdo via parametro (value)
+         * se for o mesmo retorna o primeiro valor encontrado (findFirst)
+         * lança uma exception de argumento inválido (IllegalArgumentException)
+         */
        return Stream.of(Category.values())
                .filter(c -> c.getValue().equals(value))
                .findFirst()

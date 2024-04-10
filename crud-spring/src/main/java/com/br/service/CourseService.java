@@ -1,13 +1,18 @@
 package com.br.service;
 
 import com.br.dto.CourseDTO;
+import com.br.dto.CoursePageDTO;
 import com.br.dto.mapper.CourseMapper;
 import com.br.exception.RecordNotFoundException;
 import com.br.model.Course;
 import com.br.repository.CourseRepository;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -29,11 +34,27 @@ public class CourseService {
     }
 
     // Find all Courses
-    public List<CourseDTO> list() {
-        return courseRepository.findAll()
-                .stream()
+//    public List<CourseDTO> list() {
+//        return courseRepository.findAll()
+//                .stream()
+//                .map(courseMapper::toDTO)
+//                .collect(Collectors.toList());
+//    }
+
+    // Find all Courses with pagination
+    public CoursePageDTO list(@PositiveOrZero int pageNumber,
+                              @Positive @Max(100) int pageSize) {
+        // Obtendoa quantidade de elementose páginas que existem para o cusro
+        Page<Course> pageCourse =  courseRepository.findAll(PageRequest.of(pageNumber, pageSize));
+
+        // Mapeando esses valorespara o CourseDTO
+        List<CourseDTO> courses = pageCourse
+                .get()
                 .map(courseMapper::toDTO)
                 .collect(Collectors.toList());
+
+        // retirnando o objeto de paginação
+        return new CoursePageDTO(courses, pageCourse.getTotalElements(), pageCourse.getTotalPages());
     }
 
     // Find by id Course
