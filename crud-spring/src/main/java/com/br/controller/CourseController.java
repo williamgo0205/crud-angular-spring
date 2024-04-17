@@ -32,6 +32,11 @@ public class CourseController {
         return courseService.list(pageNumber, pageSize);
     }
 
+    // @GetMapping
+    // public List<CourseDTO> list() {
+    //   return courseService.list();
+    // }
+
     /**
      * Busca por curso especifico
      * Repassando via pachVariable no corpo da requisicao atraves do "/{idCourse}"

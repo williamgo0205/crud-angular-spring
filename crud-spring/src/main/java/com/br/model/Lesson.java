@@ -87,12 +87,12 @@ public class Lesson {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Lesson{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", youTubeUrl='").append(youTubeUrl).append('\'');
-        sb.append(", course=").append(course);
-        sb.append('}');
-        return sb.toString();
+        final StringBuffer builder = new StringBuffer("Lesson [");
+        builder.append("id=").append(id)
+                .append(", name='").append(name).append('\'')
+                .append(", youTubeUrl='").append(youTubeUrl).append('\'')
+                .append(", course=").append(course)
+                .append(']');
+        return builder.toString();
     }
 }
