@@ -8,9 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class CrudSpringApplication {
@@ -22,6 +20,7 @@ public class CrudSpringApplication {
 	// Exemplo para criacao de um Bean para simular um banco de dados
 	// Apenas um teste pois a aplicacao ainda nao possui uma Base de Dados
 	@Bean
+	@Profile("dev")
 	CommandLineRunner initDatabase(CourseRepository courseRepository) {
 		return args -> {
 			courseRepository.deleteAll();
