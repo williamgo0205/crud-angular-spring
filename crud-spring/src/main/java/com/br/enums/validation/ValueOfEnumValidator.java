@@ -1,11 +1,11 @@
 package com.br.enums.validation;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 
 public class ValueOfEnumValidator implements ConstraintValidator<ValueOfEnum, CharSequence> {
     private List<String> acceptedValues;
@@ -13,7 +13,7 @@ public class ValueOfEnumValidator implements ConstraintValidator<ValueOfEnum, Ch
     @Override
     public void initialize(ValueOfEnum annotation) {
         acceptedValues = Stream.of(annotation.enumClass().getEnumConstants())
-                .map(Enum::name)
+                .map(Enum::toString)
                 .collect(Collectors.toList());
     }
 

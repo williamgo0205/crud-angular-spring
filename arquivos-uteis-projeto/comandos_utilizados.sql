@@ -22,6 +22,9 @@ link: https://developers.google.com/fonts/docs/material_icons
 -- Baeldung Validation Enum
 link: https://www.baeldung.com/javax-validations-enums
 
+-- Download Docker Desktop
+link: https://docs.docker.com/desktop/release-notes/
+
 -----------------------------
 -- ## 1 - COMANDOS ANGULAR --
 -----------------------------
