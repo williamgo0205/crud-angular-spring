@@ -10,6 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
+import java.util.Arrays;
+import java.util.List;
+
 @SpringBootApplication
 public class CrudSpringApplication {
 
@@ -17,41 +20,13 @@ public class CrudSpringApplication {
 		SpringApplication.run(CrudSpringApplication.class, args);
 	}
 
-	// Exemplo para criacao de um Bean para simular um banco de dados
-	// Apenas um teste pois a aplicacao ainda nao possui uma Base de Dados
+	// Exemplo para criacao de um Bean para um banco de dados (MySQL)
+	// Apenas um teste pois a aplicacao ainda nao possui uma Base de Dados por esse motivo utilizado o profile "dev"
 	@Bean
 	@Profile("dev")
-	CommandLineRunner initDatabase(CourseRepository courseRepository) {
+	CommandLineRunner initDatabaseDev(CourseRepository courseRepository) {
 		return args -> {
 			courseRepository.deleteAll();
-
-//			Course course1 = new Course();
-//			course1.setName("Angular com Spring");
-//			course1.setCategory(Category.FRONT_END);
-//			course1.getLessons().add(
-//					createLeassonMock("Introdução", "watch?v=111", course1)
-//			);
-//			course1.getLessons().add(
-//					createLeassonMock("Angular", "watch?v=222", course1)
-//			);
-//
-//			Course course2 = new Course();
-//			course2.setName("Java com Spring Boot");
-//			course2.setCategory(Category.BACK_END);
-//			course2.getLessons().add(
-//					createLeassonMock("Introdução", "watch?v=222", course2)
-//			);
-//
-//			Course course3 = new Course();
-//			course3.setName("Goolang" );
-//			course3.setCategory(Category.FRONT_END);
-//			course3.getLessons().add(
-//					createLeassonMock("Introdução", "watch?v=333", course3)
-//			);
-//
-//			List<Course> courses = Arrays.asList(course1, course2, course3);
-//
-//			courseRepository.saveAll(courses);
 
 			for (int i = 0; i < 20; i++) {
 				Course course = new Course();
@@ -68,6 +43,45 @@ public class CrudSpringApplication {
 			}
 		};
 	}
+
+	// Exemplo para criacao de um Bean para simular um banco de dados (H2)
+	// Apenas um teste pois a aplicacao ainda nao possui uma Base de Dados por esse motivo o profile "test"
+	@Bean
+	@Profile("test")
+	CommandLineRunner initDatabaseTest(CourseRepository courseRepository) {
+		return args -> {
+			courseRepository.deleteAll();
+
+			Course course1 = new Course();
+			course1.setName("Angular com Spring");
+			course1.setCategory(Category.FRONT_END);
+			course1.getLessons().add(
+					createLeassonMock("Introdução", "watch?v=111", course1)
+			);
+			course1.getLessons().add(
+					createLeassonMock("Angular", "watch?v=222", course1)
+			);
+
+			Course course2 = new Course();
+			course2.setName("Java com Spring Boot");
+			course2.setCategory(Category.BACK_END);
+			course2.getLessons().add(
+					createLeassonMock("Introdução", "watch?v=222", course2)
+			);
+
+			Course course3 = new Course();
+			course3.setName("Goolang" );
+			course3.setCategory(Category.FRONT_END);
+			course3.getLessons().add(
+					createLeassonMock("Introdução", "watch?v=333", course3)
+			);
+
+			List<Course> courses = Arrays.asList(course1, course2, course3);
+
+			courseRepository.saveAll(courses);
+		};
+	}
+
 
 	private Lesson createLeassonMock(String name,
 									 String youTubeUrl,
