@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of, tap } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
 
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Course } from '../../model/course';
+import { CoursePage } from '../../model/course-page';
 import { CoursesService } from '../../services/courses.service';
 
 @Component({
@@ -21,7 +23,13 @@ export class CoursersComponent implements OnInit {
   // Por conta do modo strict do Angular é necessário inicializar a variável
   // Nesse caso "Course", para isso, colocamos a inicializacao no "constructor"
   // Criando com o nome courses$ pois o Angular transforma a variável em um observable
-  courses$: Observable<Course[]> | null = null; 
+  courses$: Observable<CoursePage> | null = null; 
+
+  // Referencia para o paginator
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  pageIndex = 0;
+  pageSize = 10;
 
   // Se for utilizar o array será necessario fazer um subscribe para transformar nesse array
   // Aqui nesse ponto estamos utilizando o Observable para o courses
@@ -38,17 +46,33 @@ export class CoursersComponent implements OnInit {
   }
 
   // Funcao responsavel por fazer o refresh da pagina executando 0o mesmo codigo do construtor
-  refresh() {
+  refresh(pageEvent: PageEvent = {
+    length: 0, 
+    pageIndex: 0, 
+    pageSize: 10
+  }) {
     // this.courses = [];
     // this.coursesService = new CoursesService();
     // this.coursesService.list().subscribe(courses => { this.courses = courses });
-    this.courses$ = this.coursesService.list()
+    this.courses$ = this.coursesService.list(
+      pageEvent.pageIndex, 
+      pageEvent.pageSize
+    )
     .pipe(
+      // Atualiza as informacoes de pageIndex e pageSize para refletir os dados na pagina atualziando o paginator
+      tap(() => {
+        this.pageIndex = pageEvent.pageIndex,
+        this.pageSize = pageEvent.pageSize
+      }),
       // Tratamento de erro atraves do catchError que retorna um observable
       catchError(error => {
         console.log(error),
         this.onError('Erro ao carregar a página de cursos')
-        return of([])
+        return of({ 
+          courses: [], 
+          totalElements: 0, 
+          totalPages: 0 
+        })
       })
     );
   }
