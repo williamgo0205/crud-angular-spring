@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "crud-spring"
+		},
+		{
+			"path": "arquivos-uteis-projeto"
 		}
 	],
 	"settings": {}

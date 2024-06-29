@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -27,7 +28,7 @@ import java.util.List;
 
 @Entity
 // Anotação - @SQLDelete é possivel repassar o sql que queremos que o hibernate execute toda vez que ele executar o delete do registro
-@SQLDelete(sql = "UPDATE Course SET status = 'Inativo' WHERE id = ?")
+@SQLDelete(sql = "UPDATE course SET status = 'Inativo' WHERE id = ?")
 // Anotação - @Where é possivel filtrar no select where a clausula repassada, nesse caso "status = 'Ativo'
 @Where(clause = "status = 'Ativo'")
 //@Table(name = "cursos")
