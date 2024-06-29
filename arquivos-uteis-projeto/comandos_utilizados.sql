@@ -77,6 +77,9 @@ ex: ng g pipe shared/pipes/category
 comando: ng generate resolver <caminho/nome do resolver> ou ng g resolver <caminho/nome do resolver>
 ex: ng g resolver couses/guards/course
 
+-- Gerar o standAlone no angular a partir da versão 15.2
+comando: ng generate @angular/core:standalone
+
 -- Atualizacao Angular
 links: https://www.npmjs.com/package/@angular/core
        https://update.angular.io/

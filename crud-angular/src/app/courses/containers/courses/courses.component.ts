@@ -10,11 +10,18 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Course } from '../../model/course';
 import { CoursePage } from '../../model/course-page';
 import { CoursesService } from '../../services/courses.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
+import { NgIf, AsyncPipe } from '@angular/common';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatCard } from '@angular/material/card';
 
 @Component({
-  selector: 'app-courses',
-  templateUrl: './courses.component.html',
-  styleUrls: ['./courses.component.scss']
+    selector: 'app-courses',
+    templateUrl: './courses.component.html',
+    styleUrls: ['./courses.component.scss'],
+    standalone: true,
+    imports: [MatCard, MatToolbar, NgIf, CoursesListComponent, MatPaginator, MatProgressSpinner, AsyncPipe]
 })
 export class CoursersComponent implements OnInit {
 
