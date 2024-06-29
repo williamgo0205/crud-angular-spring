@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  ActivatedRouteSnapshot, Resolve,
+  ActivatedRouteSnapshot,
   RouterStateSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -12,7 +12,7 @@ import { CoursesService } from './../services/courses.service';
 })
 
 // Resolver => fica escutando a rota acionada e pode obter os parametros enviados atraves do snapshot (ActivatedRouteSnapshot)
-export class CourseResolver implements Resolve<Course> {
+export class CourseResolver {
 
   constructor(
     private service: CoursesService

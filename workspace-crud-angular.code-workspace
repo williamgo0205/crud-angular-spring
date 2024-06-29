@@ -4,29 +4,11 @@
 			"path": "crud-angular"
 		},
 		{
+			"path": "crud-spring"
+		},
+		{
 			"path": "arquivos-uteis-projeto"
 		}
 	],
-	"settings": {
-		"workbench.colorCustomizations": {
-			"activityBar.activeBackground": "#084e03",
-			"activityBar.background": "#084e03",
-			"activityBar.foreground": "#e7e7e7",
-			"activityBar.inactiveForeground": "#e7e7e799",
-			"activityBarBadge.background": "#01031f",
-			"activityBarBadge.foreground": "#e7e7e7",
-			"commandCenter.border": "#e7e7e799",
-			"sash.hoverBorder": "#084e03",
-			"statusBar.background": "#031d01",
-			"statusBar.foreground": "#e7e7e7",
-			"statusBarItem.hoverBackground": "#084e03",
-			"statusBarItem.remoteBackground": "#031d01",
-			"statusBarItem.remoteForeground": "#e7e7e7",
-			"titleBar.activeBackground": "#031d01",
-			"titleBar.activeForeground": "#e7e7e7",
-			"titleBar.inactiveBackground": "#031d0199",
-			"titleBar.inactiveForeground": "#e7e7e799"
-		},
-		"peacock.color": "#031D01"
-	}
+	"settings": {}
 }

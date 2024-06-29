@@ -4,8 +4,17 @@ link github: https://github.com/loiane/curso-angular
 --------------------------------
 -- ## REFERêNCIAS DOCUMENTACAO --
 --------------------------------
--- Documentação Angular
+-- Documentação Angular ate a versao 17
 link: https://angular.io/
+
+exemplo: https://v17.angular.io/docs
+         https://v16.angular.io/docs
+         https://v15.angular.io/docs
+         ...
+        
+
+-- Documentação Angular a partir da verao 18
+link: https://angular.dev
 
 -- Angular Material
 link: https://material.angular.io/
@@ -67,6 +76,17 @@ ex: ng g pipe shared/pipes/category
 -- Criando um resolver
 comando: ng generate resolver <caminho/nome do resolver> ou ng g resolver <caminho/nome do resolver>
 ex: ng g resolver couses/guards/course
+
+-- Gerar o standAlone no angular a partir da versão 15.2
+comando: ng generate @angular/core:standalone
+
+Necesarioexecutar 3 vezes esse comando:
+1 - Convert all components, directives and pipes to standalone
+2 - Remove unnecessary NgModule classes
+3 - Bootstrap the application using standalone APIs
+
+-- Control Flow Angular
+comando: ng generate @angular/core:control-flow
 
 -- Atualizacao Angular
 links: https://www.npmjs.com/package/@angular/core

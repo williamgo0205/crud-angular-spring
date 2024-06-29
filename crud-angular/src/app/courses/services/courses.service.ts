@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { first, tap } from 'rxjs/operators';
 
 import { Course } from '../model/course';
+import { CoursePage } from '../model/course-page';
 
 
 @Injectable({
@@ -24,10 +25,19 @@ export class CoursesService {
     ) { }
 
   // httpClient que retorna o metodo "list" da controller "CourseController" do backend
-  list() {
+  list(pageNumber = 0, pageSize = 10) {
     // Metodo HttpClient nesse caso um GET para ler os dados vindos da API
     // P.S. - Esse metdod HttpClient retorna um observable
-    return this.httpClient.get<Course[]>(this.API)
+    return this.httpClient.get<CoursePage>(
+      // url - Setando a api a ser chamada (nesse caso "api/courses")
+      this.API,
+      // options - sendo setado com as informacoes do paginator
+      { params: { 
+          pageNumber: pageNumber, 
+          pageSize: pageSize 
+        } 
+      } 
+    )
     .pipe(
       // first ou take faz o servidor finalizar o canal de conexão após a execução do método
       first(),

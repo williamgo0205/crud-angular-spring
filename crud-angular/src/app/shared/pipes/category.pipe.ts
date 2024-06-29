@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'category'
+    name: 'category',
+    standalone: true
 })
 // Classe pipe recebe um valor e transforma esse valor no que desejamos
 export class CategoryPipe implements PipeTransform {

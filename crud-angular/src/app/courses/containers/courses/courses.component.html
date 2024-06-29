@@ -3,33 +3,35 @@
     <span>Cursos disponíveis</span>
   </mat-toolbar>
 
-  <div class="column-flex mat-elevation-z8">
-
-    <!-- ngIf - If de validacao para o courses
-      Adicionando o "async" ele automaticamente se inscreve no o oservable 
-      e assim apos carregar os dados ele consegue saber que o c omponente foi carregado 
-      
+  @if (courses$ | async; as courses) {
+    <div class="column-flex mat-elevation-z8" >
+      <!-- ngIf - If de validacao para o courses
+      Adicionando o "async" ele automaticamente se inscreve no o oservable
+      e assim apos carregar os dados ele consegue saber que o c omponente foi carregado
       [courses]="courses" => Parametro @Input dos cursos
-      (add)="onAdd()" => repassando o evento onAdd() ao clicar no botao de incluir um curso para o @Output 
+      (add)="onAdd()" => repassando o evento onAdd() ao clicar no botao de incluir um curso para o @Output
       (edit)="onEdit($event)" => repassando o evento onEdit($event) no botao de editar um curso para o @Output atraves do evento $event-->
-    <app-courses-list 
-      *ngIf="courses$ | async as courses; else loading" 
-      [courses]="courses"
-      (add)="onAdd()" 
-      (edit)="onEdit($event)"
-      (delete)="onDelete($event)"
-    ></app-courses-list>
-
-    <!-- ng-template executa uma acao, nesse caso para a variável LOADING que foi carregada 
-        acima no ng-if da página para exibir o spinner (loading) enquanto, não tiver sido
-        carregado os dados dos courses e assim, exibe, o simbolo de loading e nao os dados
-        da tabela -->
-    <ng-template #loading>
-      <div class="loading-spinner">
-        <mat-spinner></mat-spinner>
-      </div>
-    </ng-template>
-
-  </div> 
-  
+      <app-courses-list
+        [courses]="courses.courses"
+        (add)="onAdd()"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)"
+      ></app-courses-list>
+      <!-- Paginacao do html -->
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 15]"
+        showFirstLastButtons
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
+        [length]="courses.totalElements"
+        (page)="refresh($event)"
+        aria-label="Select page of courses"
+        >
+      </mat-paginator>
+    </div>
+  } @else {
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
 </mat-card>
