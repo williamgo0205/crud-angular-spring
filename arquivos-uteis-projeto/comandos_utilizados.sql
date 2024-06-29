@@ -80,6 +80,11 @@ ex: ng g resolver couses/guards/course
 -- Gerar o standAlone no angular a partir da versão 15.2
 comando: ng generate @angular/core:standalone
 
+Necesarioexecutar 3 vezes esse comando:
+1 - Convert all components, directives and pipes to standalone
+2 - Remove unnecessary NgModule classes
+3 - Bootstrap the application using standalone APIs
+
 -- Atualizacao Angular
 links: https://www.npmjs.com/package/@angular/core
        https://update.angular.io/
