@@ -85,6 +85,9 @@ Necesarioexecutar 3 vezes esse comando:
 2 - Remove unnecessary NgModule classes
 3 - Bootstrap the application using standalone APIs
 
+-- Control Flow Angular
+comando: ng generate @angular/core:control-flow
+
 -- Atualizacao Angular
 links: https://www.npmjs.com/package/@angular/core
        https://update.angular.io/
