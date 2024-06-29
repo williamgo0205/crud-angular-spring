@@ -4,8 +4,17 @@ link github: https://github.com/loiane/curso-angular
 --------------------------------
 -- ## REFERêNCIAS DOCUMENTACAO --
 --------------------------------
--- Documentação Angular
+-- Documentação Angular ate a versao 17
 link: https://angular.io/
+
+exemplo: https://v17.angular.io/docs
+         https://v16.angular.io/docs
+         https://v15.angular.io/docs
+         ...
+        
+
+-- Documentação Angular a partir da verao 18
+link: https://angular.dev
 
 -- Angular Material
 link: https://material.angular.io/
